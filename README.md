@@ -36,6 +36,7 @@ Wish is a Python-based application built using Typer and Rich libraries. It serv
 - `wish delete [name]`: Delete a wish from the list.
 - `wish set [name] [property] [value]`: Modify wish properties.
 - `wish list [--sort | --category | --reverse | --all]`: Display the wish list with sorting options.
+- `wish stats`: Display statistics about the wish list
 
 ### Example Usage
 

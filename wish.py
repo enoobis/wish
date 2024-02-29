@@ -313,6 +313,34 @@ def list_(
     console.print(sorted_table)
     print("\n")
 
-# Run the Typer app if the script is executed
+# stats command
+@app.command(name="stats", help="Display statistics about the wish list.")
+def stats():
+    total_wishes = len(get_rows())
+    completed_wishes = sum(1 for row in get_rows() if row[2] == "True")
+    
+    categories = {}
+    for row in get_rows():
+        category = row[1]
+        categories[category] = categories.get(category, 0) + 1
+
+    display_stats(total_wishes, completed_wishes, categories)
+
+# stats func
+def display_stats(total_wishes: int, completed_wishes: int, categories: dict):
+    stats_table = Table(title="Wish List Statistics")
+    stats_table.add_column("Statistic", justify="center", style="cyan", no_wrap=True)
+    stats_table.add_column("Value", justify="center", style="bold", no_wrap=True)
+
+    stats_table.add_row("Total number of wishes", str(total_wishes))
+    stats_table.add_row("Number of completed wishes", str(completed_wishes))
+    stats_table.add_row("Number of wishes per category", "")
+
+    for category, count in categories.items():
+        stats_table.add_row(f"- {category}", str(count))
+
+    console.print(stats_table)
+
+# run
 if __name__ == "__main__":
     app()
